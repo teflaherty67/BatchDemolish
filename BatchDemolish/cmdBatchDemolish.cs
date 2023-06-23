@@ -14,7 +14,7 @@ using System.Reflection;
 namespace BatchDemolish
 {
     [Transaction(TransactionMode.Manual)]
-    public class Command : IExternalCommand
+    public class cmdBatchDemolish : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,

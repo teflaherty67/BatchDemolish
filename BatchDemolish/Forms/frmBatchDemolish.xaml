@@ -1,0 +1,28 @@
+﻿<Window x:Class="BatchDemolish.frmBatchDemolish"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BatchDemolish"
+             mc:Ignorable="d" 
+             Height="Auto"
+             Width="Auto"
+             SizeToContent="Height" Title="Batch Demolish">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Select phase to demolish elements:"/>
+        <Button x:Name="btnSelect" Content="Select" Height="25" Width="90" Click="btnSelect_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="0,0,0,30"/>
+        <Button x:Name="btnFinish" Content="Finish" Height="25" Width="90" Click="btnFinish_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,30,0,0"/>
+        <Button x:Name="btnOK" Content="OK" Width="90" Height="25" HorizontalAlignment="Right" Grid.Row="3" Margin="0,0,5,0"/>
+        <Button x:Name="btnCancel" HorizontalAlignment="Center" Width="90" Height="25" Margin="-1,0,0,0" Content="Cancel" Grid.Row="3" Grid.Column="1"/>
+    </Grid>
+</Window>

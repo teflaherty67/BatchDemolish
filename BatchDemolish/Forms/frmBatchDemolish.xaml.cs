@@ -19,9 +19,9 @@ namespace BatchDemolish
     /// <summary>
     /// Interaction logic for Window.xaml
     /// </summary>
-    public partial class MyForm : Window
+    public partial class frmBatchDemolish : Window
     {
-        public MyForm()
+        public frmBatchDemolish()
         {
             InitializeComponent();
         }
