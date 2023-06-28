@@ -11,22 +11,19 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>            
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Select phase to demolish elements:"/>
-        <Button x:Name="btnSelect" Content="Select" Height="25" Width="90" Click="btnSelect_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="0,0,0,30"/>
-        <Button x:Name="btnClose" HorizontalAlignment="Center" Width="90" Height="25" Content="Close" Grid.Row="3" Grid.Column="1" Margin="0,2,0,0" VerticalAlignment="Top" Click="btnClose_Click"/>
+        <Label Content="Select phase to demolish elements:" HorizontalAlignment="Center"/>       
         <StackPanel Grid.Row="1">
-            <RadioButton Content="Windows XP" IsChecked="True" Style="{StaticResource {x:Type ToggleButton}}"/>
-            <RadioButton Content="Windows Vista" Style="{StaticResource {x:Type ToggleButton}}"/>
-            <RadioButton Content="Windows 7" Style="{StaticResource {x:Type ToggleButton}}"/>
+            <RadioButton Content="Windows XP" IsChecked="True" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>
+            <RadioButton Content="Windows Vista" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>
+            <RadioButton Content="Windows 7" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>
         </StackPanel>
-
+        <Button x:Name="btnSelect" Content="Select" Height="25" Width="90" Click="btnSelect_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top"/>
+        <Button x:Name="btnClose" Width="90" Height="25" Content="Close" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Click="btnClose_Click"/>
     </Grid>
 </Window>
