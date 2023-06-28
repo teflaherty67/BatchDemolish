@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="Auto"
              Width="Auto"
-             SizeToContent="Height" Title="Batch Demolish">
+             SizeToContent="WidthAndHeight" Title="Batch Demolish">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -21,8 +21,12 @@
         </Grid.ColumnDefinitions>
         <Label Content="Select phase to demolish elements:"/>
         <Button x:Name="btnSelect" Content="Select" Height="25" Width="90" Click="btnSelect_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="0,0,0,30"/>
-        <Button x:Name="btnFinish" Content="Finish" Height="25" Width="90" Click="btnFinish_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,30,0,0"/>
-        <Button x:Name="btnOK" Content="OK" Width="90" Height="25" HorizontalAlignment="Right" Grid.Row="3" Margin="0,0,5,0"/>
-        <Button x:Name="btnCancel" HorizontalAlignment="Center" Width="90" Height="25" Margin="-1,0,0,0" Content="Cancel" Grid.Row="3" Grid.Column="1"/>
+        <Button x:Name="btnClose" HorizontalAlignment="Center" Width="90" Height="25" Content="Close" Grid.Row="3" Grid.Column="1" Margin="0,2,0,0" VerticalAlignment="Top" Click="btnClose_Click"/>
+        <StackPanel Grid.Row="1">
+            <RadioButton Content="Windows XP" IsChecked="True" Style="{StaticResource {x:Type ToggleButton}}"/>
+            <RadioButton Content="Windows Vista" Style="{StaticResource {x:Type ToggleButton}}"/>
+            <RadioButton Content="Windows 7" Style="{StaticResource {x:Type ToggleButton}}"/>
+        </StackPanel>
+
     </Grid>
 </Window>

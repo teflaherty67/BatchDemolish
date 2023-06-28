@@ -4,7 +4,7 @@
     <Text>Command BatchDemolish</Text>
     <Description>Some description for BatchDemolish</Description>
     <Assembly>BatchDemolish.dll</Assembly>
-    <FullClassName>BatchDemolish.Command</FullClassName>
+    <FullClassName>BatchDemolish.cmdBatchDemolish</FullClassName>
     <ClientId>b2fddf91-5227-4098-b653-dc9d14ea1c61</ClientId>
     <VendorId>com.YOUR COMPANY NAME</VendorId>
     <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>

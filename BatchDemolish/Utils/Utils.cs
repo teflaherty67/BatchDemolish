@@ -14,7 +14,7 @@ namespace BatchDemolish
         public static bool ShowForm;
         internal static void Run(UIApplication uiapp)
         {
-            MyForm curWin = new MyForm();
+            frmBatchDemolish curWin = new frmBatchDemolish();
             curWin.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             curWin.ShowDialog();
 

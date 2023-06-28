@@ -30,9 +30,9 @@ namespace BatchDemolish
         {
             Utils.ShowForm = true;
             this.Close();
-        }
+        }       
 
-        private void btnFinish_Click(object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Utils.ShowForm = false;
             this.Close();
