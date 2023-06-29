@@ -28,6 +28,8 @@ namespace BatchDemolish
 
             // put any code needed for the form here
 
+            
+
             // open form
             Utils.ShowForm = true;
             while (Utils.ShowForm == true)

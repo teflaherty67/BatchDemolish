@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autodesk.Revit.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,8 +22,11 @@ namespace BatchDemolish
     /// </summary>
     public partial class frmBatchDemolish : Window
     {
-        public frmBatchDemolish()
+        public frmBatchDemolish(Document doc)
         {
+            FilteredElementCollector colPhases = new FilteredElementCollector(doc);
+            colPhases.OfCategory(BuiltInCategory.OST_Phases);
+
             InitializeComponent();
         }
 
