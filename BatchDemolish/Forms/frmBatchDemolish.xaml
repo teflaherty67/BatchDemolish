@@ -8,10 +8,16 @@
              Height="Auto"
              Width="Auto"
              SizeToContent="WidthAndHeight" Title="Batch Demolish">
+    <Window.Resources>
+        <Style BasedOn ="{StaticResource {x:Type ToggleButton}}"
+       TargetType ="RadioButton"/>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="100"/>            
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -19,11 +25,13 @@
         </Grid.ColumnDefinitions>
         <Label Content="Select phase to demolish elements:" HorizontalAlignment="Center"/>       
         <StackPanel Grid.Row="1">
-            <RadioButton Content="Windows XP" IsChecked="True" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>
-            <RadioButton Content="Windows Vista" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>
-            <RadioButton Content="Windows 7" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>
+            <StackPanel x:Name="sp"/>
+            <Button x:Name="showChoice" Click="showChoice_Click" Width="100" Height="25">Show Choice</Button>
+            <!--<RadioButton Content="Windows XP" IsChecked="True" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>-->
+            <!--<RadioButton Content="Windows Vista" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>-->
+            <!--<RadioButton Content="Windows 7" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>-->
         </StackPanel>
         <Button x:Name="btnSelect" Content="Select" Height="25" Width="90" Click="btnSelect_Click" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top"/>
-        <Button x:Name="btnClose" Width="90" Height="25" Content="Close" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Click="btnClose_Click"/>
+        <Button x:Name="btnClose" Width="90" Height="25" Content="Close" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" Click="btnClose_Click"/>
     </Grid>
 </Window>
