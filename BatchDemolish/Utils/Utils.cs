@@ -22,7 +22,14 @@ namespace BatchDemolish
             {
                 IList<Reference> pickList = uiapp.ActiveUIDocument.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element);
 
-                TaskDialog.Show("Test", "Running the command");
+                // check if the element has a "Phase Demolished" parameter
+                Parameter paramPhaseDemo = pickList.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
+
+                if (paramPhaseDemo != null)
+                {
+                    // set the value of "Phase Demolished" to "None"
+                    paramPhaseDemo.Set(ElementId.InvalidElementId);
+                }                
             }
         }
 

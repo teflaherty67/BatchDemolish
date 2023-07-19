@@ -26,16 +26,28 @@ namespace BatchDemolish
     /// </summary>
     public partial class frmBatchDemolish : Window
     {
+        public string selectedPhase;
         public frmBatchDemolish(Document doc)
         {
-            FilteredElementCollector colPhases = new FilteredElementCollector(doc);
-            colPhases.OfCategory(BuiltInCategory.OST_Phases);
+            // get all the phases in the project
+            FilteredElementCollector colPhases = new FilteredElementCollector(doc)
+                .OfClass(typeof(Phase));
+
+            // create an empty list to hold the phase names
+            List<string> phases = new List<string>();
+
+            // loop through the phases
+            foreach (Phase curPhase in colPhases)
+            {
+                // add the phase name to the list
+                phases.Add(curPhase.Name);
+            }
 
             InitializeComponent();
 
-            foreach (object obj in Enum.GetValues(typeof(ChoicesEnum)))
+            foreach (string phase in phases)
             {
-                RadioButton rb = new RadioButton() { Content = obj, Height = 25, Width = 100 };
+                RadioButton rb = new RadioButton() { Content = phase, Height = 25, Width = 100 };
                 sp.Children.Add(rb);
                 rb.Checked += new RoutedEventHandler(rb_Checked);
                 rb.Unchecked += new RoutedEventHandler(rb_Unchecked);
@@ -44,25 +56,29 @@ namespace BatchDemolish
 
         void rb_Unchecked(object sender, RoutedEventArgs e)
         {
-            Console.Write((sender as RadioButton).Content.ToString() + " checked.");
+            //Console.Write((sender as RadioButton).Content.ToString() + " checked.");
+
+            selectedPhase = "";
         }
 
         void rb_Checked(object sender, RoutedEventArgs e)
         {
-            Console.Write((sender as RadioButton).Content.ToString() + " unchecked.");
+            //Console.Write((sender as RadioButton).Content.ToString() + " unchecked.");
+
+            selectedPhase = (sender as RadioButton).Content.ToString();
         }
 
-        private void showChoice_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (RadioButton rb in sp.Children)
-            {
-                if (rb.IsChecked == true)
-                {
-                    MessageBox.Show(rb.Content.ToString());
-                    break;
-                }
-            }
-        }
+        //private void showChoice_Click(object sender, RoutedEventArgs e)
+        //{
+        //    foreach (RadioButton rb in sp.Children)
+        //    {
+        //        if (rb.IsChecked == true)
+        //        {
+        //            MessageBox.Show(rb.Content.ToString());
+        //            break;
+        //        }
+        //    }
+        //}
 
         private void btnSelect_Click(object sender, RoutedEventArgs e)
         {

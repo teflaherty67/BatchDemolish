@@ -26,7 +26,7 @@
         <Label Content="Select phase to demolish elements:" HorizontalAlignment="Center"/>       
         <StackPanel Grid.Row="1">
             <StackPanel x:Name="sp"/>
-            <Button x:Name="showChoice" Click="showChoice_Click" Width="100" Height="25">Show Choice</Button>
+            <!--<Button x:Name="showChoice" Click="showChoice_Click" Width="100" Height="25">Show Choice</Button>-->
             <!--<RadioButton Content="Windows XP" IsChecked="True" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>-->
             <!--<RadioButton Content="Windows Vista" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>-->
             <!--<RadioButton Content="Windows 7" Style="{StaticResource {x:Type ToggleButton}}" Height="25" Width="150"/>-->

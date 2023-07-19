@@ -28,20 +28,6 @@ namespace BatchDemolish
 
             // put any code needed for the form here
 
-            // get all the phases in the project
-            FilteredElementCollector colPhases = new FilteredElementCollector(curDoc)
-                .OfClass(typeof(Phase));
-
-            // create an empty list to hold the phase names
-            List<string> phases = new List<string>();
-
-            // loop through the phases
-            foreach (Phase curPhase in colPhases)
-            {
-                // add the phase name to the list
-                phases.Add(curPhase.Name);
-            }            
-
             // open form
             Utils.ShowForm = true;
             while (Utils.ShowForm == true)
