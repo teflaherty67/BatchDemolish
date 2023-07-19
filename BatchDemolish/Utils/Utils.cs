@@ -1,11 +1,15 @@
-﻿using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Selection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BatchDemolish
 {
@@ -22,14 +26,36 @@ namespace BatchDemolish
             {
                 IList<Reference> pickList = uiapp.ActiveUIDocument.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element);
 
-                // check if the element has a "Phase Demolished" parameter
-                Parameter paramPhaseDemo = pickList.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
+                //foreach (Reference curPick in pickList)
+                //{
+                //    Parameter paramPhaseDemo = curPick.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
 
-                if (paramPhaseDemo != null)
-                {
-                    // set the value of "Phase Demolished" to "None"
-                    paramPhaseDemo.Set(ElementId.InvalidElementId);
-                }                
+                //    if (paramPhaseDemo != null)
+                //    {
+                //        paramPhaseDemo.Set(curWin.selectedPhase);
+                //    }
+                //}
+
+                //// prompt the user to select an element
+                //var curElem = curDoc.GetElement(uidoc.Selection.PickObject
+                //    (ObjectType.Element, "Select element to undemolish"));
+
+                //// check if the element has a "Phase Demolished" parameter
+                //Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
+
+                //if (paramPhaseDemo != null)
+                //{
+                //    // set the value of "Phase Demolished" to "None"
+                //    paramPhaseDemo.Set(ElementId.InvalidElementId);
+
+                //    // commit the transaction
+                //    t.Commit();
+                //}
+                //else
+                //{
+                //    // rollback the transaction
+                //    t.RollBack();
+                //}
             }
         }
 
