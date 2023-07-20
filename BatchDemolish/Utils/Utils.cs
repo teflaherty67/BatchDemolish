@@ -16,7 +16,7 @@ namespace BatchDemolish
     internal static class Utils
     {
         public static bool ShowForm;
-        internal static void Run(UIApplication uiapp)
+        internal static void Run(UIApplication uiapp, Document curDoc)
         {
             frmBatchDemolish curWin = new frmBatchDemolish(uiapp.ActiveUIDocument.Document);
             curWin.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -26,36 +26,17 @@ namespace BatchDemolish
             {
                 IList<Reference> pickList = uiapp.ActiveUIDocument.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element);
 
-                //foreach (Reference curPick in pickList)
-                //{
-                //    Parameter paramPhaseDemo = curPick.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
+                foreach (Reference pick in pickList)
+                {
+                    Element curElem = curDoc.GetElement(pick);
 
-                //    if (paramPhaseDemo != null)
-                //    {
-                //        paramPhaseDemo.Set(curWin.selectedPhase);
-                //    }
-                //}
+                    Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
 
-                //// prompt the user to select an element
-                //var curElem = curDoc.GetElement(uidoc.Selection.PickObject
-                //    (ObjectType.Element, "Select element to undemolish"));
-
-                //// check if the element has a "Phase Demolished" parameter
-                //Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
-
-                //if (paramPhaseDemo != null)
-                //{
-                //    // set the value of "Phase Demolished" to "None"
-                //    paramPhaseDemo.Set(ElementId.InvalidElementId);
-
-                //    // commit the transaction
-                //    t.Commit();
-                //}
-                //else
-                //{
-                //    // rollback the transaction
-                //    t.RollBack();
-                //}
+                    if (paramPhaseDemo != null)
+                    {
+                        paramPhaseDemo.Set(curWin.selectedPhase);
+                    }
+                }               
             }
         }
 

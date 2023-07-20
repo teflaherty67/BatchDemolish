@@ -32,7 +32,7 @@ namespace BatchDemolish
             Utils.ShowForm = true;
             while (Utils.ShowForm == true)
             {
-                Utils.Run(uiapp);
+                Utils.Run(uiapp, curDoc);
             }
 
             // get form data and do something
