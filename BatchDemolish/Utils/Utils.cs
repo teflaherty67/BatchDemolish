@@ -30,6 +30,10 @@ namespace BatchDemolish
                 {
                     Element curElem = curDoc.GetElement(pick);
 
+                    ElementId curElemId = curElem.Id;
+                    
+                    //ElementId selectedPhaseID = curWin.selectedPhase
+
                     Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
 
                     if (paramPhaseDemo != null)
