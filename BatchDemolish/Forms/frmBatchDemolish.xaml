@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="Auto"
              Width="Auto"
-             SizeToContent="WidthAndHeight" Title="Batch Demolish">
+             SizeToContent="WidthAndHeight" Title="Demolish to Phase">
     <Window.Resources>
         <Style BasedOn ="{StaticResource {x:Type ToggleButton}}"
        TargetType ="RadioButton"/>

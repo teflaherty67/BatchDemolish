@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Windows.Controls;
 
 #endregion
 
@@ -27,6 +28,8 @@ namespace BatchDemolish
             Document curDoc = uidoc.Document;
 
             // put any code needed for the form here
+
+           
 
             // open form
             Utils.ShowForm = true;

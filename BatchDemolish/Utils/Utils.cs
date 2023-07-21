@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using Forms = System.Windows; 
 
 namespace BatchDemolish
 {
@@ -26,23 +28,64 @@ namespace BatchDemolish
             {
                 IList<Reference> pickList = uiapp.ActiveUIDocument.Selection.PickObjects(Autodesk.Revit.UI.Selection.ObjectType.Element);
 
-                foreach (Reference pick in pickList)
+                using (Transaction t = new Transaction(curDoc))
                 {
-                    Element curElem = curDoc.GetElement(pick);
+                    t.Start("Demolish to Phase");
 
-                    ElementId curElemId = curElem.Id;
-
-                    Phase selectedDemoPhase = Utils.getPhaseByName(curDoc, curWin.selectedPhase);
-
-                    ElementId selectedPhaseId = selectedDemoPhase.Id;
-
-                    Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
-
-                    if (paramPhaseDemo != null)
+                    foreach (Reference pick in pickList)
                     {
-                        paramPhaseDemo.Set(ElementId.selectedPhaseId);
+                        // get current element from the pick list
+                        Element curElem = curDoc.GetElement(pick);
+
+                        ElementId demoPhaseId;
+
+                        Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
+
+                        // get the PhaseDemolishedID
+                        if (curWin.selectedPhase == "None")
+                        {
+                            demoPhaseId = ElementId.InvalidElementId;
+                        }
+                        else if (curWin.selectedPhase != "None")
+                        {
+                            // get the value of the PHASE_CREATED parameter for curElem
+                            Parameter paramPhaseCreated = curElem.get_Parameter(BuiltInParameter.PHASE_CREATED);
+                            string paramCreatedPhase = paramPhaseCreated.ToString();
+
+                            // ?? get the index of the PHASE_CREATED value from the phase array
+                            int indexCreated = curWin.arrayPhases.get_Item(paramCreatedPhase);
+
+                            // get the value of the selectedDemoPhase variable
+                            Phase selectedPhaseDemo= Utils.getPhaseByName(curDoc, curWin.selectedPhase);
+                            string paramDemoPhase = paramPhaseDemo.ToString();
+
+                            // get the index of the selectedDemoPhase variable from the phase array
+                            int indexDemo = curWin.arrayPhases.get_Item(paramDemoPhase);
+
+                            // if the index of selectedDemoPhase is less than the index of PHASE_CREATED warn the user
+                            if (indexDemo < indexCreated)
+                            {
+                                // 
+                                string msgText = "Invalid oder of phases: an object cannot be demolished before it was created";
+                                string msgTitle = "Error";
+                                Forms.MessageBoxButton msgButtons = Forms.MessageBoxButton.OK;
+
+                                Forms.MessageBox.Show(msgText, msgTitle, msgButtons, Forms.MessageBoxImage.Warning);
+                            }
+                            // if the index is greater than the index of PHASE_CREATED
+                            else if (indexDemo > indexCreated)
+                            {
+                                // set the demoPhaseID = selectedDemoPhase.Id
+                                demoPhaseId = selectedPhaseDemo.Id;
+                            }                                                        
+                        }
+
+                        // set the Phase_Demolished parameter
+                        paramPhaseDemo.Set(demoPhaseId);
                     }
-                }               
+
+                    t.Commit();
+                }                        
             }
         }
 
