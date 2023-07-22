@@ -26,20 +26,14 @@ namespace BatchDemolish
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Application app = uiapp.Application;
             Document curDoc = uidoc.Document;
-
-            // put any code needed for the form here
-
-           
-
+            
             // open form
             Utils.ShowForm = true;
             while (Utils.ShowForm == true)
             {
                 Utils.Run(uiapp, curDoc);
             }
-
-            // get form data and do something
-
+            
             return Result.Succeeded;
         }
 
