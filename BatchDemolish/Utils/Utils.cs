@@ -21,7 +21,7 @@ namespace BatchDemolish
         internal static void Run(UIApplication uiapp, Document curDoc)
         {
             frmBatchDemolish curWin = new frmBatchDemolish(uiapp.ActiveUIDocument.Document);
-            curWin.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            curWin.WindowStartupLocation = System.Windows.WindowStartupLocation.Manual;
             curWin.ShowDialog();
 
             if (Utils.ShowForm)
@@ -37,7 +37,7 @@ namespace BatchDemolish
                         // get current element from the pick list
                         Element curElem = curDoc.GetElement(pick);
 
-                        ElementId demoPhaseId;
+                        ElementId demoPhaseId = null;
 
                         Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
 
@@ -50,22 +50,24 @@ namespace BatchDemolish
                         {
                             // get the value of the PHASE_CREATED parameter for curElem
                             Parameter paramPhaseCreated = curElem.get_Parameter(BuiltInParameter.PHASE_CREATED);
-                            string paramCreatedPhase = paramPhaseCreated.ToString();
+
+                            Phase createdPhase = curElem.Document.GetElement(paramPhaseCreated.AsElementId()) as Phase;
+
+                            string paramCreatedPhase = createdPhase.Name;
 
                             // ?? get the index of the PHASE_CREATED value from the phase array
-                            int indexCreated = curWin.arrayPhases.get_Item(paramCreatedPhase);
+                            int indexCreated = GetPhaseIndex(curWin.arrayPhases, paramCreatedPhase);
 
                             // get the value of the selectedDemoPhase variable
                             Phase selectedPhaseDemo= Utils.getPhaseByName(curDoc, curWin.selectedPhase);
                             string paramDemoPhase = paramPhaseDemo.ToString();
 
                             // get the index of the selectedDemoPhase variable from the phase array
-                            int indexDemo = curWin.arrayPhases.get_Item(paramDemoPhase);
+                            int indexDemo = GetPhaseIndex(curWin.arrayPhases, paramDemoPhase);
 
                             // if the index of selectedDemoPhase is less than the index of PHASE_CREATED warn the user
                             if (indexDemo < indexCreated)
-                            {
-                                // 
+                            {                                
                                 string msgText = "Invalid oder of phases: an object cannot be demolished before it was created";
                                 string msgTitle = "Error";
                                 Forms.MessageBoxButton msgButtons = Forms.MessageBoxButton.OK;
@@ -136,6 +138,21 @@ namespace BatchDemolish
             }
 
             return null;
+        }
+
+        public static int GetPhaseIndex(PhaseArray arrayPhases, string paramCreatedPhase)
+        {
+            int index = 0;
+
+            foreach (Phase curPhase in arrayPhases)
+            {
+                if (curPhase.Name == paramCreatedPhase)
+                    break;
+
+                index++;
+            }
+
+            return index;
         }
 
         #endregion
