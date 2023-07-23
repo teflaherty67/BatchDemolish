@@ -33,59 +33,67 @@ namespace BatchDemolish
                 {
                     t.Start("Demolish to Phase");
 
-                    foreach (Reference pick in pickList)
+                    if (pickList.Count != 0)
                     {
-                        // get current element from the pick list
-                        Element curElem = curDoc.GetElement(pick);
-
-                        ElementId demoPhaseId = null;
-
-                        Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
-
-                        // get the PhaseDemolishedID
-                        if (curWin.selectedPhase == "None")
+                        foreach (Reference pick in pickList)
                         {
-                            demoPhaseId = ElementId.InvalidElementId;
-                        }
-                        else if (curWin.selectedPhase != "None")
-                        {
-                            // get the value of the PHASE_CREATED parameter for curElem
-                            Parameter paramPhaseCreated = curElem.get_Parameter(BuiltInParameter.PHASE_CREATED);
+                            // get current element from the pick list
+                            Element curElem = curDoc.GetElement(pick);
 
-                            Phase createdPhase = curElem.Document.GetElement(paramPhaseCreated.AsElementId()) as Phase;
+                            ElementId demoPhaseId = null;
 
-                            string paramCreatedPhase = createdPhase.Name;
+                            Parameter paramPhaseDemo = curElem.get_Parameter(BuiltInParameter.PHASE_DEMOLISHED);
 
-                            // get the index of the PHASE_CREATED value from the phase array
-                            int indexCreated = GetPhaseIndex(curWin.arrayPhases, paramCreatedPhase);
-
-                            // get the value of the selectedDemoPhase variable
-                            Phase selectedPhaseDemo= Utils.getPhaseByName(curDoc, curWin.selectedPhase);
-                            string paramDemoPhase = paramPhaseDemo.ToString();
-
-                            // get the index of the selectedDemoPhase variable from the phase array
-                            int indexDemo = GetPhaseIndex(curWin.arrayPhases, paramDemoPhase);
-
-                            // if the index of selectedDemoPhase is less than the index of PHASE_CREATED warn the user
-                            if (indexDemo < indexCreated)
-                            {                                
-                                string msgText = "Invalid oder of phases: an object cannot be demolished before it was created";
-                                string msgTitle = "Error";
-                                Forms.MessageBoxButton msgButtons = Forms.MessageBoxButton.OK;
-
-                                Forms.MessageBox.Show(msgText, msgTitle, msgButtons, Forms.MessageBoxImage.Warning);
-                            }
-                            // if the index is greater than the index of PHASE_CREATED
-                            else if (indexDemo > indexCreated)
+                            // get the PhaseDemolishedID
+                            if (curWin.selectedPhase == "None")
                             {
-                                // set the demoPhaseID = selectedDemoPhase.Id
-                                demoPhaseId = selectedPhaseDemo.Id;
-                            }                                                        
-                        }
+                                demoPhaseId = ElementId.InvalidElementId;
+                            }
+                            else if (curWin.selectedPhase != "None")
+                            {
+                                // get the value of the PHASE_CREATED parameter for curElem
+                                Parameter paramPhaseCreated = curElem.get_Parameter(BuiltInParameter.PHASE_CREATED);
 
-                        // set the Phase_Demolished parameter
-                        paramPhaseDemo.Set(demoPhaseId);
+                                Phase createdPhase = curElem.Document.GetElement(paramPhaseCreated.AsElementId()) as Phase;
+
+                                string paramCreatedPhase = createdPhase.Name;
+
+                                // get the index of the PHASE_CREATED value from the phase array
+                                int indexCreated = GetPhaseIndex(curWin.arrayPhases, paramCreatedPhase);
+
+                                // get the value of the selectedDemoPhase variable
+                                Phase selectedPhaseDemo = Utils.getPhaseByName(curDoc, curWin.selectedPhase);
+                                string paramDemoPhase = paramPhaseDemo.ToString();
+
+                                // get the index of the selectedDemoPhase variable from the phase array
+                                int indexDemo = GetPhaseIndex(curWin.arrayPhases, paramDemoPhase);
+
+                                // if the index of selectedDemoPhase is less than the index of PHASE_CREATED warn the user
+                                if (indexDemo < indexCreated)
+                                {
+                                    string msgText = "Invalid oder of phases: an object cannot be demolished before it was created";
+                                    string msgTitle = "Error";
+                                    Forms.MessageBoxButton msgButtons = Forms.MessageBoxButton.OK;
+
+                                    Forms.MessageBox.Show(msgText, msgTitle, msgButtons, Forms.MessageBoxImage.Warning);
+                                }
+                                // if the index is greater than the index of PHASE_CREATED
+                                else if (indexDemo > indexCreated)
+                                {
+                                    // set the demoPhaseID = selectedDemoPhase.Id
+                                    demoPhaseId = selectedPhaseDemo.Id;
+                                }
+                            }
+
+                            // set the Phase_Demolished parameter
+                            paramPhaseDemo.Set(demoPhaseId);
+                        }
                     }
+
+                    else
+                    {
+                        TaskDialog.Show("Phase to Demolish", "No elements were selected. Select some elements and try again.");
+                    }                    
 
                     t.Commit();
                 }                        
@@ -143,7 +151,7 @@ namespace BatchDemolish
 
         public static int GetPhaseIndex(PhaseArray arrayPhases, string paramCreatedPhase)
         {
-            int index = 0;
+            int index = 0;            
 
             foreach (Phase curPhase in arrayPhases)
             {
