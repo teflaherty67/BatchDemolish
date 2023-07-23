@@ -55,7 +55,7 @@ namespace BatchDemolish
 
                             string paramCreatedPhase = createdPhase.Name;
 
-                            // ?? get the index of the PHASE_CREATED value from the phase array
+                            // get the index of the PHASE_CREATED value from the phase array
                             int indexCreated = GetPhaseIndex(curWin.arrayPhases, paramCreatedPhase);
 
                             // get the value of the selectedDemoPhase variable
